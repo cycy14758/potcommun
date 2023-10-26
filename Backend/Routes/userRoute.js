@@ -1,12 +1,12 @@
 const express = require('express');
 const user= require('../Models/User');
-const { registerCheck,validator,loginCheck } = require('../Middlewares/Validator');
+const { registerCheck,validator,loginCheck } = require('../Middelwares/Validator');
 const bcrypt = require('bcrypt')
 const router = express.Router(); 
 const jwt = require("jsonwebtoken")
-const isAuth=require("../middlewares/Autho")
+const isAuth=require("../Middelwares/Autho")
 const upload=require('../Utils/Multer')
-const isAdmin=require("../middlewares/Admin")
+const isAdmin=require("../Middelwares/Admin")
 // Add new product
 router.post("/register",upload("users").single("file"),registerCheck(), validator, async (req, res) => {
     const { email, password, role } = req.body
@@ -73,28 +73,41 @@ router.get('/', async (req, res) => {
     }
   });
 //put
-  router.put('/:id',upload("users").single("file"),isAuth(), async (req, res) => {
+  router.put('/:id',upload("users").single("file"),isAuth, async (req, res) => {
+const {name}=req.body
     try {
-        const url =` ${req.protocol}://${req.get("host")}/${req.file.path}`
-        const newusers = new user(req.body);
-     newusers.img=url
-       const updateduser = await user.findByIdAndUpdate(req.params.id, {...req.body});
-       res.send(updateduser);
-     } 
+        const existName = await user.findOne({ name })
+           if (existName &&existName._id==!req.params.id) {
+            return res.status(400).send({ msg:"name exist,please change user name"})
+        }
+           const result = await user.updateOne({ _id: req.params.id }, { ...req.body })
+        const UserUpdated = await  user.findOne({ _id: req.params.id })
+
+         if(req.file)
+             { const url = `${req.protocol}://${req.get("host")}/${req.file.path}`
+             UserUpdated.img =url
+              await UserUpdated.save()
+                }
+             console.log((result.modifiedCount) || (req.file));
+         if ((result.modifiedCount) || (req.file)) {
+
+            return res.send({ msg: "update suuccess", user: UserUpdated });
+          }
+        return res.status(400).send({ msg: " aleardy update " })
+    }
      catch (error) {
     console.log(error);
      }
    });
-router.delete('/', isAuth(),isAdmin,async (req, res) => {
-   
-  
+   router.delete("/reception/:id",isAuth(), async (req, res) => {
     try {
-      result=await user.deleteMany();
-      res.send( result );
+        const result = await user.deleteOne({ _id: req.params.id })
+        if (result.deletedCount) {
+            return res.send({ msg: "delete  success" })
+        } res.status(400).send({ msg: "aleardy delete" })
     } catch (error) {
-   
-      console.log(error);
-    }
-  });
+        console.log(error)
+     
+    }})
   
 module.exports = router;

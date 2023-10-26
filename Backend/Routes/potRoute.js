@@ -5,7 +5,7 @@ const pot = require('../Models/Pot');
 const router = express.Router();
 
 // Add new product
-router.post("/", upload("pots").single("file"), async (req, res) => {
+router.post("/", upload("pots").single("file"),isAuth, async (req, res) => {
     try {
         const url =` ${req.protocol}://${req.get("host")}/${req.file.path}`
         // Create a new product instance using the request body
@@ -51,7 +51,8 @@ router.delete('/:id', async (req, res) => {
     try {
       result=await pot.findByIdAndRemove(id);
       res.send( result );
-    } catch (error) {
+    }
+     catch (error) {
    
       console.log(error);
     }
