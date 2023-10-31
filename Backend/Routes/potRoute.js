@@ -32,19 +32,25 @@ router.get('/', async (req, res) => {
     }
   });
 //put
-  router.put('/:id', upload("pots").single("file"), async (req, res) => {
-    try {     
-       const updatepot= await pot.findByIdAndUpdate(req.params.id, {...req.body});
-       if (req.file){
-        const url =` ${req.protocol}://${req.get("host")}/${req.file.path}`
-        updatepot.img=url
-       }
-       res.send(updatepot);
-     } 
+router.put("/:id",upload("products").single("file"),isAuth(), async (req, res) => {
+    try {
+         const result = await Product.updateOne({ _id: req.params.id }, { ...req.body })
+            productUpdated = await  Product.findOne({ _id: req.params.id })
+             if(req.file)
+             { const url = `${req.protocol}://${req.get("host")}/${req.file.path}`
+             productUpdated.img =url
+              await productUpdated.save()
+             }
+     if (result.modifiedCount || req.file) {
+            return res.send({ msg: "update suuccess", product: productUpdated });
+          }
+         res.status(400).send({ msg: " aleardy update " })
+    }
      catch (error) {
-    console.log(error);
-     }
-   });
+        console.log(error)
+        res.status(400).send(error.message)
+    }
+})
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
   

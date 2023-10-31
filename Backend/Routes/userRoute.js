@@ -72,34 +72,40 @@ router.get('/', async (req, res) => {
      console.log(error);
     }
   });
+
 //put
-  router.put('/:id',upload("users").single("file"),isAuth, async (req, res) => {
-const {name}=req.body
+router.put("/:id",upload("user").single("file"),isAuth(), async (req, res) => {
+    const { password,name} = req.body
     try {
         const existName = await user.findOne({ name })
            if (existName &&existName._id==!req.params.id) {
             return res.status(400).send({ msg:"name exist,please change user name"})
         }
+      if(req.body.password){
+            const hashedPassword = await bcrypt.hash(password, 10)
+             req.body.password=hashedPassword
+           }
            const result = await user.updateOne({ _id: req.params.id }, { ...req.body })
-        const UserUpdated = await  user.findOne({ _id: req.params.id })
-
-         if(req.file)
+           const UserUpdated = await  user.findOne({ _id: req.params.id })
+      if(req.file)
              { const url = `${req.protocol}://${req.get("host")}/${req.file.path}`
              UserUpdated.img =url
               await UserUpdated.save()
                 }
              console.log((result.modifiedCount) || (req.file));
-         if ((result.modifiedCount) || (req.file)) {
-
+         if ((result.modifiedCount) || (req.file)||(req.password)) {
+            
             return res.send({ msg: "update suuccess", user: UserUpdated });
           }
         return res.status(400).send({ msg: " aleardy update " })
     }
      catch (error) {
-    console.log(error);
-     }
-   });
-   router.delete("/reception/:id",isAuth(), async (req, res) => {
+        console.log(error)
+        res.status(400).send(error.message)
+    }
+})
+
+   router.delete("/:id",isAuth(), async (req, res) => {
     try {
         const result = await user.deleteOne({ _id: req.params.id })
         if (result.deletedCount) {
