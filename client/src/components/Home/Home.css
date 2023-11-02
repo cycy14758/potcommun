@@ -5,3 +5,42 @@
     width: 1349px;
     height: 850px;
 }
+.seo-page-form-input{
+-webkit-text-size-adjust: 100%;
+
+-webkit-font-smoothing: antialiased;
+position: absolute;
+top: 400px;
+left: 500px;
+border: 20px;
+outline: 50;
+display: block;
+width:290px;
+padding: 9px;
+border-radius: 10px ;
+color: #d9dbe2;
+
+font-size: 16px;
+display: table-cell;
+
+font-family: 'Open Sans';
+
+}
+.seo-page-form-button{
+ -webkit-text-size-adjust: 100%;
+position: relative;
+bottom:28px;
+left: 206px;
+-webkit-font-smoothing: antialiased;
+letter-spacing: -.01em;
+font-size: 14px;
+color: #1f222d;
+font-family: open sans;
+display: table-cell;
+vertical-align: center;
+width: auto;}
+.bt{
+    height: 2;
+      margin-top: auto;
+      
+}

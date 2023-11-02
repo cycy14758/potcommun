@@ -1,35 +1,34 @@
-import React from 'react'
+import Carousel from 'react-bootstrap/Carousel';
 
-function Carousel() {
+function UncontrolledExample() {
   return (
-<div id="carouselExampleIndicators" className="carousel slide">
-  <div className="carousel-indicators">
-  
-  </div>
-  <div className="carousel-inner">
-    <div className="carousel-item active">
-      <img src="..." className="d-block w-100" alt="..." />
-    </div>
-    <div className="carousel-item">
-      <img src="..." className="d-block w-100" alt="..." />
-    </div>
-    <div className="carousel-item">
-      <img src="..." className="d-block w-100" alt="..." />
-    </div>
-  </div>
-  <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span className="carousel-control-prev-icon" aria-hidden="true" />
-    <span className="visually-hidden">Previous</span>
-  </button>
-  <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span className="carousel-control-next-icon" aria-hidden="true" />
-    <span className="visually-hidden">Next</span>
-  </button>
-</div>
-
-
-  )
+    <Carousel>
+      <Carousel.Item>
+      <img className='img-Coursel'   src="https://img.freepik.com/photos-premium/joyeux-anniversaire_10221-23271.jpg?w=740"/>
+        <Carousel.Caption>
+          <h3>First slide label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+     <img className='img-Coursel'   src="https://img.freepik.com/photos-premium/joyeux-anniversaire_10221-23271.jpg?w=740"/>
+        <Carousel.Caption>
+          <h3>Second slide label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+      <img  className='img-Coursel' src="https://img.freepik.com/photos-premium/joyeux-anniversaire_10221-23271.jpg?w=740"/>
+       
+        <Carousel.Caption>
+          <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+  );
 }
 
-export default Carousel
-  
+export default UncontrolledExample;
