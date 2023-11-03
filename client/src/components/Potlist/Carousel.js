@@ -1,24 +1,37 @@
 import Carousel from 'react-bootstrap/Carousel';
-
+import './potlist.css'
+import Card from '../Card/card';
 function UncontrolledExample() {
   return (
     <Carousel>
       <Carousel.Item>
-      <img className='img-Coursel'   src="https://img.freepik.com/photos-premium/joyeux-anniversaire_10221-23271.jpg?w=740"/>
+      <div  className='cards'    >
+      <Card/>
+      <Card/>
+      <Card/>
+      </div>
         <Carousel.Caption>
           <h3>First slide label</h3>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-     <img className='img-Coursel'   src="https://img.freepik.com/photos-premium/joyeux-anniversaire_10221-23271.jpg?w=740"/>
+     <div  className='cards'    >
+      <Card/>
+      <Card/>
+      <Card/>
+      </div>
         <Carousel.Caption>
           <h3>Second slide label</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-      <img  className='img-Coursel' src="https://img.freepik.com/photos-premium/joyeux-anniversaire_10221-23271.jpg?w=740"/>
+      <div  className='cards'    >
+      <Card/>
+      <Card/>
+      <Card/>
+      </div>
        
         <Carousel.Caption>
           <h3>Third slide label</h3>

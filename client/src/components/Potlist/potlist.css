@@ -1,6 +1,15 @@
 .img-Coursel{
-    width: 1250px;
+    width: 1000px;
+}
+body{
+    background-color: rgb(101, 113, 124)
 }
 .potsList{
-    width: 1250px;
+    width: 1650px;
+
+}
+.cards{
+    display: flex;
+    position: relative;
+    top: 10px;
 }
